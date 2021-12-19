@@ -70,7 +70,10 @@ ___Key Terms:___
 
 - ___Genesis Block:___ The genesis block is the first block on the blockchain and it is typically hard-coded into the blockchain structure. Being the first block on the blockchain, it does not have a link to a previous hash.
 
-
+  
+# Simulation
+  
+  
 <div style="display:block;margin:auto;height:80%;width:80%">
   <img src="blockchain-simulation.gif">
 </div>
