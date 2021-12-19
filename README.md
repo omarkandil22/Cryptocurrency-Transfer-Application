@@ -32,7 +32,9 @@ This github repository also contains 2 dashboards:
     ```pip install requests```
     ```pip install flask```
     ```pip install flask-core```
-3. download the code form [github] ()
+3. install [git](https://git-scm.com/downloads)
+4. download the code from Github
+    ```git clone https://github.com/omarkandil22/Cryptocurrency-Transfer-Application.git```
 
 # How to run the code
 
