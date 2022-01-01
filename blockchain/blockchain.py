@@ -28,7 +28,6 @@ class Blockchain:
         #Create genesis block
         self.create_block(0, '00')
 
-
     def register_node(self, node_url):
         """
         Add a new node to the list of nodes
@@ -43,7 +42,6 @@ class Blockchain:
         else:
             raise ValueError('Invalid URL')
 
-
     def submit_transaction(self, sender_name, recipient_name, value):
         """
         Add a transaction to transactions array if the signature verified
@@ -54,8 +52,6 @@ class Blockchain:
 
         self.transactions.append(transaction)
         return len(self.chain) + 1
-
-
 
     def create_block(self, nonce, previous_hash):
         """
@@ -75,7 +71,6 @@ class Blockchain:
         self.chain.append(block)
         return block
 
-
     def hash(self, block):
         """
         Create a SHA-256 hash of a block
@@ -84,7 +79,6 @@ class Blockchain:
         block_string = json.dumps(block, sort_keys=True).encode()
         
         return hashlib.sha256(block_string).hexdigest()
-
 
     def proof_of_work(self):
         """
@@ -99,7 +93,6 @@ class Blockchain:
 
         return nonce
 
-
     def valid_proof(self, transactions, last_hash, nonce, difficulty=MINING_DIFFICULTY):
         """
         Check if a hash value satisfies the mining conditions. This function is used within the proof_of_work function.
@@ -107,7 +100,6 @@ class Blockchain:
         guess = (str(transactions)+str(last_hash)+str(nonce)).encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:difficulty] == '0'*difficulty
-
 
     def valid_chain(self, chain):
         """
@@ -187,8 +179,6 @@ def index():
 def configure():
     return render_template('./configure.html')
 
-
-
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
     values = request.form
@@ -229,10 +219,6 @@ def mine():
     last_block = blockchain.chain[-1]
     nonce = blockchain.proof_of_work()
 
-    # We must receive a reward for finding the proof.
-    #recipient_name = blockchain.transactions[0]['sender_name']
-    #blockchain.submit_transaction(sender_name=MINING_SENDER, recipient_name=recipient_name, value=MINING_REWARD)
-
     # Forge the new Block by adding it to the chain
     previous_hash = blockchain.hash(last_block)
     block = blockchain.create_block(nonce, previous_hash)
@@ -245,8 +231,6 @@ def mine():
         'previous_hash': block['previous_hash'],
     }
     return jsonify(response), 200
-
-
 
 @app.route('/nodes/register', methods=['POST'])
 def register_nodes():
@@ -265,7 +249,6 @@ def register_nodes():
     }
     return jsonify(response), 201
 
-
 @app.route('/nodes/resolve', methods=['GET'])
 def consensus():
     replaced = blockchain.resolve_conflicts()
@@ -282,13 +265,11 @@ def consensus():
         }
     return jsonify(response), 200
 
-
 @app.route('/nodes/get', methods=['GET'])
 def get_nodes():
     nodes = list(blockchain.nodes)
     response = {'nodes': nodes}
     return jsonify(response), 200
-
 
 
 if __name__ == '__main__':
